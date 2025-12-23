@@ -3,86 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Warry - Warranty Tracker</title>
+    <title>Warry - Your Digital Organizer</title>
     <style>
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; display: flex; flex-direction: column; }
-        
-        /* Üst Dil Seçeneği */
-        .top-bar { position: absolute; top: 20px; right: 30px; font-weight: 600; background: rgba(255,255,255,0.8); padding: 10px 20px; border-radius: 20px; backdrop-filter: blur(10px); }
-        .top-bar a { text-decoration: none; color: #333; margin: 0 5px; transition: color 0.3s; }
+        .top-bar { position: absolute; top: 20px; right: 30px; font-weight: 600; background: rgba(255,255,255,0.8); padding: 10px 20px; border-radius: 20px; backdrop-filter: blur(10px); z-index: 10; }
+        .top-bar a { text-decoration: none; color: #333; margin: 0 5px; cursor: pointer; }
         .top-bar a:hover { color: #007AFF; }
-        .top-bar span { color: #ccc; }
-
-        /* Ana İçerik */
+        
         .hero { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 40px 20px; }
-        .app-icon { width: 120px; height: 120px; background: #007AFF; border-radius: 28px; margin-bottom: 30px; box-shadow: 0 10px 20px rgba(0,122,255,0.3); display: flex; align-items: center; justify-content: center; color: white; font-size: 40px; font-weight: bold;}
-        h1 { font-size: 3rem; margin-bottom: 10px; color: #1c1c1e; }
-        p.tagline { font-size: 1.2rem; color: #666; max-width: 600px; margin-bottom: 50px; line-height: 1.5; }
+        .logo-container { width: 180px; height: 180px; margin-bottom: 20px; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.15)); }
+        svg { width: 100%; height: 100%; border-radius: 40px; }
 
-        /* Butonlar */
+        h1 { font-size: 3rem; margin: 10px 0; color: #1c1c1e; }
+        p.tagline { font-size: 1.2rem; color: #444; max-width: 600px; margin-bottom: 40px; line-height: 1.5; font-weight: 400; }
+
         .button-container { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
-        .main-btn { display: inline-block; padding: 15px 40px; border-radius: 15px; text-decoration: none; font-weight: 600; font-size: 1.1rem; transition: transform 0.2s, box-shadow 0.2s; }
-        
-        .btn-support { background: #007AFF; color: white; box-shadow: 0 4px 15px rgba(0,122,255,0.3); }
-        .btn-support:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,122,255,0.4); background: #006be0; }
-        
-        .btn-privacy { background: white; color: #333; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        .btn-privacy:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.15); color: #007AFF; }
+        .main-btn { display: inline-block; padding: 15px 40px; border-radius: 15px; text-decoration: none; font-weight: 600; font-size: 1.1rem; transition: all 0.2s; }
+        .btn-support { background: #1E40AF; color: white; box-shadow: 0 4px 15px rgba(30,64,175,0.3); }
+        .btn-support:hover { transform: translateY(-3px); background: #1e3a8a; }
+        .btn-privacy { background: white; color: #333; border: 1px solid #ddd; }
+        .btn-privacy:hover { transform: translateY(-3px); background: #f9f9f9; }
 
-        /* Dil Bölümleri */
-        .content-section { display: none; }
-        .content-section:target { display: block; } /* URL'de #tr varsa gösterir */
-        #en { display: block; } /* Varsayılan olarak İngilizce göster */
-
-        .footer { text-align: center; padding: 20px; color: #888; font-size: 0.9rem; }
+        [lang="tr"] { display: none; }
+        .footer { text-align: center; padding: 20px; color: #666; font-size: 0.9rem; }
     </style>
 </head>
 <body>
 
     <div class="top-bar">
-        <a href="#en">EN</a> <span>|</span> <a href="#tr">TR</a>
+        <a onclick="setLang('en')">EN</a> <span>|</span> <a onclick="setLang('tr')">TR</a>
     </div>
 
     <div class="hero">
-        <div class="app-icon">W</div> <div id="en" class="content-section">
+        <div class="logo-container">
+            <svg viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="1024" height="1024" fill="#1E40AF"/>
+                <defs>
+                    <linearGradient id="icon_grad" x1="0" y1="0" x2="1024" y2="1024" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#3B82F6"/><stop offset="1" stop-color="#1E3A8A"/>
+                    </linearGradient>
+                </defs>
+                <rect width="1024" height="1024" fill="url(#icon_grad)"/>
+                <path d="M180 320C180 275.817 215.817 240 260 240H440L520 320H764C808.183 320 844 355.817 844 400V724C844 768.183 808.183 804 764 804H260C215.817 804 180 768.183 180 724V320Z" fill="white"/>
+                <path d="M180 400H844V440H180V400Z" fill="#F1F5F9"/>
+                <rect x="392" y="480" width="240" height="180" rx="24" fill="#1E40AF" />
+                <rect x="420" y="600" width="24" height="40" rx="4" fill="#FBBF24" /><rect x="464" y="600" width="24" height="40" rx="4" fill="#FBBF24" /><rect x="508" y="600" width="24" height="40" rx="4" fill="#FBBF24" /><rect x="552" y="600" width="24" height="40" rx="4" fill="#FBBF24" /><rect x="596" y="600" width="24" height="40" rx="4" fill="#FBBF24" />
+                <circle cx="430" cy="520" r="10" fill="white" fill-opacity="0.6" /><circle cx="470" cy="520" r="10" fill="white" fill-opacity="0.3" /><circle cx="510" cy="520" r="10" fill="white" fill-opacity="0.1" />
+            </svg>
+        </div>
+        
+        <div class="lang-en">
             <h1>Warry</h1>
             <p class="tagline">Keep all your belongings, warranties, and receipts in one place. Get reminders before warranties expire!</p>
             <div class="button-container">
-                <a href="support.html#en" class="main-btn btn-support">Support & Contact</a>
-                <a href="privacy.html#en" class="main-btn btn-privacy">Privacy Policy</a>
+                <a href="support.html?lang=en" class="main-btn btn-support">Support & Contact</a>
+                <a href="privacy.html?lang=en" class="main-btn btn-privacy">Privacy Policy</a>
             </div>
         </div>
 
-        <div id="tr" class="content-section">
+        <div class="lang-tr" style="display:none;">
             <h1>Warry</h1>
             <p class="tagline">Tüm eşyalarınızı, garanti belgelerinizi ve faturalarınızı tek bir yerde toplayın. Garanti süreleri dolmadan bildirim alın!</p>
             <div class="button-container">
-                <a href="support.html#tr" class="main-btn btn-support">Destek ve İletişim</a>
-                <a href="privacy.html#tr" class="main-btn btn-privacy">Gizlilik Politikası</a>
+                <a href="support.html?lang=tr" class="main-btn btn-support">Destek ve İletişim</a>
+                <a href="privacy.html?lang=tr" class="main-btn btn-privacy">Gizlilik Politikası</a>
             </div>
         </div>
-
     </div>
 
-    <div class="footer">
-        &copy; 2025 Warry. All rights reserved.
-    </div>
+    <div class="footer">&copy; 2025 Warry App</div>
 
     <script>
-        // Basit bir script ile sayfa yüklendiğinde veya hash değiştiğinde doğru dili gösterelim
-        function handleLanguageChange() {
-            const hash = window.location.hash;
-            if (hash === '#tr') {
-                document.getElementById('en').style.display = 'none';
-                document.getElementById('tr').style.display = 'block';
-            } else {
-                document.getElementById('tr').style.display = 'none';
-                document.getElementById('en').style.display = 'block';
-            }
+        function setLang(lang) {
+            document.querySelector('.lang-en').style.display = lang === 'en' ? 'block' : 'none';
+            document.querySelector('.lang-tr').style.display = lang === 'tr' ? 'block' : 'none';
         }
-        window.addEventListener('hashchange', handleLanguageChange);
-        window.addEventListener('load', handleLanguageChange);
     </script>
-
 </body>
 </html>
